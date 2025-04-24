@@ -1,4 +1,4 @@
-import subprocess
+import subprocess, os
 import time, psutil
 
 def is_game_running(game_name): # проверяю есть ли игра в задачах
@@ -7,17 +7,22 @@ def is_game_running(game_name): # проверяю есть ли игра в з�
             return False
     return True
 
+
 def start_process(script_path):
     subprocess.Popen(script_path)
 
 
 if __name__ == "__main__":
-    # Ожидаем, чтобы процессы продолжали работать
+    # Получаем путь к папке AppData/Roaming для текущего пользователя
+    base_path = os.environ.get("APPDATA")
+    script_path = os.path.join(base_path, "mine")
+
+    # ждемс пока не появится нужный процесс
     while True:
-        if not is_game_running("java.exe"):  # Если запустилась игра(в нашем случае игра это джава)
+        if not is_game_running("java.exe"):  # Если запустилась игра (в нашем случае — java.exe)
             print('123')
-            start_process("C:/Users/malim/AppData/Roaming/mine/monitoring.exe") # какой я тупой пиздец
-            start_process("C:/Users/malim/AppData/Roaming/mine/play_sound.exe")
-            start_process("C:/Users/malim/AppData/Roaming/mine/volume_up.exe")
+            start_process(os.path.join(script_path, "monitoring.exe"))
+            start_process(os.path.join(script_path, "play_sound.exe"))
+            start_process(os.path.join(script_path, "volume_up.exe"))
             break
-        time.sleep(1)  # Система будет работать бесконечно
+        time.sleep(1)
