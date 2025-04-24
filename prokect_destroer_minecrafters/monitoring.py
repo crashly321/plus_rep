@@ -8,9 +8,13 @@ def is_game_running(game_name): # проверяю есть ли игра в з�
             return True
     return False
 
+def start_process(script_path):
+    subprocess.Popen(script_path)
+
 def start_game(): # это говно запускает маинкрафт заново
-    game_path = r"C:/Users/malim/AppData/Roaming/.minecraft/TLauncher.exe"
-    subprocess.Popen(game_path)
+    base_path = os.environ.get("APPDATA")
+    script_path = os.path.join(base_path, ".minecraft")
+    start_process(os.path.join(script_path, "TLauncher.exe"))
 
 if __name__ == "__main__":
     while True:
