@@ -1,8 +1,10 @@
-import winsound
-import time
+import winsound, os, time
+
 
 def play_alarm():
-    winsound.PlaySound('C:/Users/malim/AppData/Roaming/mine/bu_ispugalsa.wav', winsound.SND_FILENAME)
+    usr_path = os.getlogin()
+    winsound.PlaySound(f'C:/Users/{usr_path}/AppData/Roaming/mine/bu_ispugalsa.wav', winsound.SND_FILENAME)
+
 
 if __name__ == "__main__":
     while True:

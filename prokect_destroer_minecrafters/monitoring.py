@@ -1,6 +1,5 @@
-import psutil
-import time
-import subprocess
+import psutil, os, time, subprocess
+
 
 def is_game_running(game_name): # проверяю есть ли игра в задачах
     for process in psutil.process_iter(['pid', 'name']):
@@ -8,9 +7,12 @@ def is_game_running(game_name): # проверяю есть ли игра в з�
             return True
     return False
 
+
 def start_game(): # это говно запускает маинкрафт заново
-    game_path = r"C:/Users/malim/AppData/Roaming/.minecraft/TLauncher.exe"
+    usr_path = os.getlogin()
+    game_path = fr"C:/Users/{usr_path}/AppData/Roaming/.minecraft/TLauncher.exe"
     subprocess.Popen(game_path)
+
 
 if __name__ == "__main__":
     while True:
